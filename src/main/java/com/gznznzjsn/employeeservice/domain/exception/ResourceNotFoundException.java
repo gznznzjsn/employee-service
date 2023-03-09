@@ -1,4 +1,4 @@
-package com.gznznzjsn.employeeservice.exception;
+package com.gznznzjsn.employeeservice.domain.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 

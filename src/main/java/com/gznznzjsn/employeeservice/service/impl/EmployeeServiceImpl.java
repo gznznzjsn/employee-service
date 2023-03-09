@@ -1,7 +1,7 @@
 package com.gznznzjsn.employeeservice.service.impl;
 
 import com.gznznzjsn.employeeservice.domain.Employee;
-import com.gznznzjsn.employeeservice.exception.ResourceNotFoundException;
+import com.gznznzjsn.employeeservice.domain.exception.ResourceNotFoundException;
 import com.gznznzjsn.employeeservice.repository.EmployeeDao;
 import com.gznznzjsn.employeeservice.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
