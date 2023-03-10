@@ -2,18 +2,18 @@ package com.gznznzjsn.employeeservice.service;
 
 
 import com.gznznzjsn.employeeservice.domain.Employee;
-
-import java.util.List;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public interface EmployeeService {
 
-    List<Employee> getAll();
+    Flux<Employee> getAll();
 
-    Employee create(Employee employee);
+    Mono<Employee> create(Employee employee);
 
-    Employee get(Long employeeId);
+    Mono<Employee> get(Long employeeId);
 
-    void delete(Long employeeId);
+    Mono<Void> delete(Long employeeId);
 
 }
 
