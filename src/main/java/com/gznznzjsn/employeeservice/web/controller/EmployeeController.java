@@ -28,9 +28,10 @@ public class EmployeeController {
     //    @PreAuthorize("hasAuthority('EMPLOYEE_MANAGER')")
     @PostMapping
     public Mono<EmployeeDto> create(@Validated(OnCreateEmployee.class) @RequestBody EmployeeDto employeeDto) {
-        return employeeService
-                .create(employeeMapper.toEntity(employeeDto))
-                .map(employeeMapper::toDto);
+       return Mono.just(employeeDto)
+               .map(employeeMapper::toEntity)
+               .flatMap(employeeService::create)
+               .map(employeeMapper::toDto);
     }
 
     //    @PreAuthorize("hasAuthority('EMPLOYEE_MANAGER')")
