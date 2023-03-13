@@ -19,13 +19,11 @@ public class EmployeeController {
     private final EmployeeMapper employeeMapper;
     private final EmployeeService employeeService;
 
-    //    @PreAuthorize("hasAuthority('EMPLOYEE_MANAGER')")
     @GetMapping
     public Flux<EmployeeDto> getAll() {
         return employeeService.getAll().map(employeeMapper::toDto);
     }
 
-    //    @PreAuthorize("hasAuthority('EMPLOYEE_MANAGER')")
     @PostMapping
     public Mono<EmployeeDto> create(@Validated(OnCreateEmployee.class) @RequestBody EmployeeDto employeeDto) {
        return Mono.just(employeeDto)
@@ -34,7 +32,6 @@ public class EmployeeController {
                .map(employeeMapper::toDto);
     }
 
-    //    @PreAuthorize("hasAuthority('EMPLOYEE_MANAGER')")
     @GetMapping("/{employeeId}")
     public Mono<EmployeeDto> get(@PathVariable Long employeeId) {
         return employeeService
@@ -42,7 +39,6 @@ public class EmployeeController {
                 .map(employeeMapper::toDto);
     }
 
-    //    @PreAuthorize("hasAuthority('EMPLOYEE_MANAGER')")
     @DeleteMapping("/{employeeId}")
     public Mono<Void> delete(@PathVariable Long employeeId) {
         return employeeService.delete(employeeId);

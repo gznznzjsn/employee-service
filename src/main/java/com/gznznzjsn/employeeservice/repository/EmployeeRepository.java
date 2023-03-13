@@ -6,9 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmployeeRepository extends R2dbcRepository<Employee, Long> {
-
-//    Mono<Employee> save(Employee employee);
-
-
-
 }
