@@ -1,6 +1,7 @@
-package com.gznznzjsn.employeeservice.commandapi.projection;
+package com.gznznzjsn.employeeservice.commandapi.handler;
 
 import com.gznznzjsn.employeeservice.commandapi.event.EmployeeCreatedEvent;
+import com.gznznzjsn.employeeservice.commandapi.event.EmployeeDeletedEvent;
 import com.gznznzjsn.employeeservice.domain.Employee;
 import com.gznznzjsn.employeeservice.persistence.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class EmployeeProjection {
+public class EmployeeEventHandler {
 
     private final EmployeeRepository repository;
 
@@ -18,11 +19,16 @@ public class EmployeeProjection {
     public void on(EmployeeCreatedEvent event) {
         Mono.just(event)
                 .flatMap(e -> repository.save(Employee.builder()
-                        .id(event.getId())
                         .name(event.getName())
                         .specialization(event.getSpecialization())
-                        .isNew(true)
                         .build()))
+                .subscribe();
+    }
+
+    @EventHandler
+    public void on(EmployeeDeletedEvent event) {
+        Mono.just(event)
+                .flatMap(e -> repository.deleteById(event.getEmployeeId()))
                 .subscribe();
     }
 

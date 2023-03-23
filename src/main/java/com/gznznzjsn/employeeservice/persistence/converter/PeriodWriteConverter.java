@@ -15,8 +15,8 @@ public class PeriodWriteConverter implements Converter<Period, OutboundRow> {
         if (Period.getId() != null) {
             row.put("period_id", Parameter.from(Period.getId()));
         }
-        if (Period.getEmployee() != null && Period.getEmployee().getId() != null) {
-            row.put("employee_id", Parameter.from(Period.getEmployee().getId()));
+        if (Period.getEmployee() != null && Period.getEmployee().getEmployeeId() != null) {
+            row.put("employee_id", Parameter.from(Period.getEmployee().getEmployeeId()));
         }
         if (Period.getDate() != null) {
             row.put("period_date", Parameter.from(Period.getDate()));

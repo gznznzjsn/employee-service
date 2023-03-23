@@ -10,7 +10,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {
 
-    Employee toEntity(EmployeeDto dto);
 
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID())")
     CreateEmployeeCommand toCreateCommand(EmployeeDto dto);

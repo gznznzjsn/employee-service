@@ -1,7 +1,9 @@
 package com.gznznzjsn.employeeservice.commandapi.aggregate;
 
 import com.gznznzjsn.employeeservice.commandapi.command.CreateEmployeeCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.DeleteEmployeeCommand;
 import com.gznznzjsn.employeeservice.commandapi.event.EmployeeCreatedEvent;
+import com.gznznzjsn.employeeservice.commandapi.event.EmployeeDeletedEvent;
 import com.gznznzjsn.employeeservice.domain.Specialization;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
@@ -18,6 +20,7 @@ public class EmployeeAggregate {
 
     @AggregateIdentifier
     private UUID id;
+    private Long employeeId;
     private String name;
     private Specialization specialization;
 
@@ -30,11 +33,24 @@ public class EmployeeAggregate {
         ));
     }
 
+    @CommandHandler
+    public EmployeeAggregate(DeleteEmployeeCommand command) {
+        AggregateLifecycle.apply(new EmployeeDeletedEvent(
+                command.getId(),
+                command.getEmployeeId()
+        ));
+    }
+
     @EventSourcingHandler
     public void on(EmployeeCreatedEvent event) {
         this.id = event.getId();
         this.name = event.getName();
         this.specialization = event.getSpecialization();
+    }
+
+    @EventSourcingHandler
+    public void on(EmployeeDeletedEvent event) {
+        this.id = event.getId();
     }
 
 }
