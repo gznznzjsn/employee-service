@@ -1,12 +1,14 @@
-package com.gznznzjsn.employeeservice.cqrsdemo.event;
+package com.gznznzjsn.employeeservice.commandapi.event;
 
 import com.gznznzjsn.employeeservice.domain.Specialization;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public final class EmployeeCreatedEvent {
 
-    private final String uuid;
+    private final UUID id;
     private final String name;
     private final Specialization specialization;
 

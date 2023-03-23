@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/employee-api/v1/employees")
@@ -27,7 +29,7 @@ public class EmployeeController {
 //    }
 
     @PostMapping
-    public Mono<String> create(@Validated(OnCreateEmployee.class) @RequestBody EmployeeDto employeeDto) {
+    public Mono<UUID> create(@Validated(OnCreateEmployee.class) @RequestBody EmployeeDto employeeDto) {
         return Mono.just(employeeDto)
                 .map(employeeMapper::toCreateCommand)
                 .flatMap(employeeCommandService::createEmployee);

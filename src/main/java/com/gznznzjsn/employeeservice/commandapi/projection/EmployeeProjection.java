@@ -1,16 +1,14 @@
-package com.gznznzjsn.employeeservice.cqrsdemo.projection;
+package com.gznznzjsn.employeeservice.commandapi.projection;
 
-import com.gznznzjsn.employeeservice.cqrsdemo.event.EmployeeCreatedEvent;
+import com.gznznzjsn.employeeservice.commandapi.event.EmployeeCreatedEvent;
 import com.gznznzjsn.employeeservice.domain.Employee;
 import com.gznznzjsn.employeeservice.persistence.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-@Slf4j
 @RequiredArgsConstructor
 public class EmployeeProjection {
 
@@ -20,8 +18,10 @@ public class EmployeeProjection {
     public void on(EmployeeCreatedEvent event) {
         Mono.just(event)
                 .flatMap(e -> repository.save(Employee.builder()
+                        .id(event.getId())
                         .name(event.getName())
                         .specialization(event.getSpecialization())
+                        .isNew(true)
                         .build()))
                 .subscribe();
     }

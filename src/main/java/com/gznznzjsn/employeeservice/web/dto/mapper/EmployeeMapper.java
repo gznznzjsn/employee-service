@@ -1,7 +1,7 @@
 package com.gznznzjsn.employeeservice.web.dto.mapper;
 
 
-import com.gznznzjsn.employeeservice.command.model.CreateEmployeeCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.CreateEmployeeCommand;
 import com.gznznzjsn.employeeservice.domain.Employee;
 import com.gznznzjsn.employeeservice.web.dto.EmployeeDto;
 import org.mapstruct.Mapper;
@@ -12,7 +12,7 @@ public interface EmployeeMapper {
 
     Employee toEntity(EmployeeDto dto);
 
-    @Mapping(target = "uuid", expression = "java(java.util.UUID.randomUUID().toString())")
+    @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID())")
     CreateEmployeeCommand toCreateCommand(EmployeeDto dto);
 
     EmployeeDto toDto(Employee entity);

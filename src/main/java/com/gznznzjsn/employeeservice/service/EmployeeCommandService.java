@@ -1,10 +1,12 @@
 package com.gznznzjsn.employeeservice.service;
 
-import com.gznznzjsn.employeeservice.command.model.CreateEmployeeCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.CreateEmployeeCommand;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 public interface EmployeeCommandService {
 
-    Mono<String> createEmployee(CreateEmployeeCommand command);
+    Mono<UUID> createEmployee(CreateEmployeeCommand command);
 
 }

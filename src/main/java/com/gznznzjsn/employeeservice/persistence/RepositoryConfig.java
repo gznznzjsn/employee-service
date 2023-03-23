@@ -2,6 +2,10 @@ package com.gznznzjsn.employeeservice.persistence;
 
 import com.gznznzjsn.employeeservice.persistence.converter.PeriodReadConverter;
 import com.gznznzjsn.employeeservice.persistence.converter.PeriodWriteConverter;
+import org.axonframework.config.EventProcessingConfigurer;
+import org.axonframework.eventhandling.TrackingEventProcessorConfiguration;
+import org.axonframework.messaging.StreamableMessageSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
@@ -20,6 +24,14 @@ public class RepositoryConfig {
         converters.add(new PeriodReadConverter());
         converters.add(new PeriodWriteConverter());
         return R2dbcCustomConversions.of(MySqlDialect.INSTANCE, converters);
+    }
+
+    @Autowired
+    public void configureInitialTrackingToken(EventProcessingConfigurer processingConfigurer) {
+        TrackingEventProcessorConfiguration tepConfig =
+                TrackingEventProcessorConfiguration.forSingleThreadedProcessing()
+                        .andInitialTrackingToken(StreamableMessageSource::createHeadToken);
+        processingConfigurer.registerTrackingEventProcessorConfiguration(config -> tepConfig);
     }
 
 }
