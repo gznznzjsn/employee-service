@@ -15,9 +15,6 @@ public record EmployeeDto(
         @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         UUID id,
 
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        Long employeeId,
-
         @NotBlank(message = "Employee's name can't be blank!", groups = {OnCreateEmployee.class})
         @Length(max = 40, message = "Too long name!", groups = {OnCreateEmployee.class})
         String name,

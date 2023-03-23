@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/employee-api/v1/employees")
@@ -29,7 +31,7 @@ public class EmployeeQueryController {
     }
 
     @GetMapping("/{employeeId}")
-    public Mono<EmployeeDto> get(@PathVariable Long employeeId) {
+    public Mono<EmployeeDto> get(@PathVariable UUID employeeId) {
         return employeeQueryService
                 .get(new GetEmployeeByIdQuery(employeeId))
                 .map(employeeMapper::toDto);

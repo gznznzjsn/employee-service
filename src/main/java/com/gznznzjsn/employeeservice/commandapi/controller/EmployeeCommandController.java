@@ -29,8 +29,8 @@ public class EmployeeCommandController {
     }
 
     @DeleteMapping("/{employeeId}")
-    public Mono<UUID> delete(@PathVariable Long employeeId) {
-        return employeeCommandService.delete(new DeleteEmployeeCommand(UUID.randomUUID(), employeeId));
+    public Mono<UUID> delete(@PathVariable UUID employeeId) {
+        return employeeCommandService.delete(new DeleteEmployeeCommand(employeeId));
     }
 
 }

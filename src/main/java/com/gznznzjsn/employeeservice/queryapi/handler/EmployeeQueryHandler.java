@@ -26,10 +26,10 @@ public class EmployeeQueryHandler {
     @QueryHandler
     public Employee handle(GetEmployeeByIdQuery getEmployeeByIdQuery) {
         return repository
-                .findById(getEmployeeByIdQuery.getEmployeeId())
+                .findById(getEmployeeByIdQuery.getId())
                 .switchIfEmpty(
                         Mono.error(
-                                new ResourceNotFoundException("Employee with id=" + getEmployeeByIdQuery.getEmployeeId() + " not found!")
+                                new ResourceNotFoundException("Employee with id=" + getEmployeeByIdQuery.getId() + " not found!")
                         )
                 ).block();
     }

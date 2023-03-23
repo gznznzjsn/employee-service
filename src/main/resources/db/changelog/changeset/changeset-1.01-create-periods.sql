@@ -4,7 +4,7 @@
 create table periods
 (
     period_id    bigserial primary key,
-    employee_id  bigserial references employees on delete cascade,
+    employee_id  uuid references employees on delete cascade,
     period_date  date     not null,
     period_start smallint not null,
     period_end   smallint not null

@@ -9,6 +9,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @ReadingConverter
 public class PeriodReadConverter implements Converter<Row, Period> {
@@ -18,7 +19,7 @@ public class PeriodReadConverter implements Converter<Row, Period> {
         return Period.builder()
                 .id(source.get("period_id", Long.class))
                 .employee(Employee.builder()
-                        .employeeId(source.get("employee_id", Long.class))
+                        .id(source.get("employee_id", UUID.class))
                         .name(source.get("employee_name", String.class))
                         .specialization(Specialization.valueOf(source.get("employee_specialization", String.class)))
                         .build()

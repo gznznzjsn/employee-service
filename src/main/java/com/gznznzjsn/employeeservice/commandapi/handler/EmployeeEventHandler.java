@@ -19,8 +19,10 @@ public class EmployeeEventHandler {
     public void on(EmployeeCreatedEvent event) {
         Mono.just(event)
                 .flatMap(e -> repository.save(Employee.builder()
+                        .id(event.getId())
                         .name(event.getName())
                         .specialization(event.getSpecialization())
+                        .isNew(true)
                         .build()))
                 .subscribe();
     }
@@ -28,7 +30,7 @@ public class EmployeeEventHandler {
     @EventHandler
     public void on(EmployeeDeletedEvent event) {
         Mono.just(event)
-                .flatMap(e -> repository.deleteById(event.getEmployeeId()))
+                .flatMap(e -> repository.deleteById(event.getId()))
                 .subscribe();
     }
 

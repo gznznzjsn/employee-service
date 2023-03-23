@@ -10,6 +10,5 @@ public class DeleteEmployeeCommand {
 
     @TargetAggregateIdentifier
     private final UUID id;
-    private final Long employeeId;
 
 }

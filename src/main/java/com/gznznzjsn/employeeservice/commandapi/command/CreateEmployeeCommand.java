@@ -9,7 +9,6 @@ import java.util.UUID;
 @Data
 public final class CreateEmployeeCommand {
 
-        @TargetAggregateIdentifier
         private final UUID id;
         private final String name;
         private final Specialization specialization;

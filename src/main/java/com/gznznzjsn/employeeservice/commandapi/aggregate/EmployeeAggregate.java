@@ -20,7 +20,6 @@ public class EmployeeAggregate {
 
     @AggregateIdentifier
     private UUID id;
-    private Long employeeId;
     private String name;
     private Specialization specialization;
 
@@ -34,10 +33,9 @@ public class EmployeeAggregate {
     }
 
     @CommandHandler
-    public EmployeeAggregate(DeleteEmployeeCommand command) {
+    public void handle(DeleteEmployeeCommand command) {
         AggregateLifecycle.apply(new EmployeeDeletedEvent(
-                command.getId(),
-                command.getEmployeeId()
+                command.getId()
         ));
     }
 
@@ -50,7 +48,7 @@ public class EmployeeAggregate {
 
     @EventSourcingHandler
     public void on(EmployeeDeletedEvent event) {
-        this.id = event.getId();
+        AggregateLifecycle.markDeleted();
     }
 
 }
