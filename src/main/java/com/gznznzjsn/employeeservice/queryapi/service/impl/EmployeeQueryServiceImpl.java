@@ -1,6 +1,6 @@
 package com.gznznzjsn.employeeservice.queryapi.service.impl;
 
-import com.gznznzjsn.employeeservice.domain.Employee;
+import com.gznznzjsn.employeeservice.core.model.Employee;
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;
 import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
 import com.gznznzjsn.employeeservice.queryapi.service.EmployeeQueryService;

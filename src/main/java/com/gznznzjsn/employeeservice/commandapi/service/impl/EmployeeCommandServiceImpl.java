@@ -1,7 +1,7 @@
 package com.gznznzjsn.employeeservice.commandapi.service.impl;
 
-import com.gznznzjsn.employeeservice.commandapi.command.CreateEmployeeCommand;
-import com.gznznzjsn.employeeservice.commandapi.command.DeleteEmployeeCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.EmployeeCreateCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.EmployeeDeleteCommand;
 import com.gznznzjsn.employeeservice.commandapi.service.EmployeeCommandService;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
@@ -17,12 +17,12 @@ public class EmployeeCommandServiceImpl implements EmployeeCommandService {
     private final ReactorCommandGateway commandGateway;
 
     @Override
-    public Mono<UUID> createEmployee(CreateEmployeeCommand command) {
+    public Mono<UUID> createEmployee(EmployeeCreateCommand command) {
         return commandGateway.send(command);
     }
 
     @Override
-    public Mono<UUID> delete(DeleteEmployeeCommand command) {
+    public Mono<UUID> delete(EmployeeDeleteCommand command) {
         return commandGateway.send(command);
     }
 

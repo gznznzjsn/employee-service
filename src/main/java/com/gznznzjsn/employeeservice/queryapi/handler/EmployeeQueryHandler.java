@@ -1,8 +1,8 @@
 package com.gznznzjsn.employeeservice.queryapi.handler;
 
-import com.gznznzjsn.employeeservice.domain.Employee;
-import com.gznznzjsn.employeeservice.domain.exception.ResourceNotFoundException;
-import com.gznznzjsn.employeeservice.persistence.repository.EmployeeRepository;
+import com.gznznzjsn.employeeservice.core.model.Employee;
+import com.gznznzjsn.employeeservice.core.model.exception.ResourceNotFoundException;
+import com.gznznzjsn.employeeservice.core.persistence.repository.EmployeeRepository;
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;
 import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
 import lombok.RequiredArgsConstructor;
@@ -19,17 +19,17 @@ public class EmployeeQueryHandler {
     private final EmployeeRepository repository;
 
     @QueryHandler
-    public List<Employee> handle(GetAllEmployeesQuery getAllEmployeesQuery) {
-        return repository.findAll().collectList().block();
+    public List<Employee> handle(GetAllEmployeesQuery query) {
+        return repository.findAllByGlossary_Id(query.getGlossaryId()).collectList().block();
     }
 
     @QueryHandler
-    public Employee handle(GetEmployeeByIdQuery getEmployeeByIdQuery) {
+    public Employee handle(GetEmployeeByIdQuery query) {
         return repository
-                .findById(getEmployeeByIdQuery.getId())
+                .findByGlossary_IdAndId(query.getGlossaryId(),query.getEmployeeId())
                 .switchIfEmpty(
                         Mono.error(
-                                new ResourceNotFoundException("Employee with id=" + getEmployeeByIdQuery.getId() + " not found!")
+                                new ResourceNotFoundException("Employee with id=" + query.getEmployeeId() + " not found!") //todo message
                         )
                 ).block();
     }

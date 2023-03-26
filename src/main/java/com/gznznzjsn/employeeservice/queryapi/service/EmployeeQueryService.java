@@ -1,6 +1,6 @@
 package com.gznznzjsn.employeeservice.queryapi.service;
 
-import com.gznznzjsn.employeeservice.domain.Employee;
+import com.gznznzjsn.employeeservice.core.model.Employee;
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;
 import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
 import reactor.core.publisher.Flux;

@@ -1,15 +1,15 @@
 package com.gznznzjsn.employeeservice.commandapi.service;
 
-import com.gznznzjsn.employeeservice.commandapi.command.CreateEmployeeCommand;
-import com.gznznzjsn.employeeservice.commandapi.command.DeleteEmployeeCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.EmployeeCreateCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.EmployeeDeleteCommand;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
 public interface EmployeeCommandService {
 
-    Mono<UUID> createEmployee(CreateEmployeeCommand command);
+    Mono<UUID> createEmployee(EmployeeCreateCommand command);
 
-    Mono<UUID> delete(DeleteEmployeeCommand command);
+    Mono<UUID> delete(EmployeeDeleteCommand command);
 
 }

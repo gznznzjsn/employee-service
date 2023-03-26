@@ -7,6 +7,7 @@ import java.util.UUID;
 @Data
 public class GetEmployeeByIdQuery {
 
-    private final UUID id;
+    private final UUID glossaryId;
+    private final UUID employeeId;
 
 }

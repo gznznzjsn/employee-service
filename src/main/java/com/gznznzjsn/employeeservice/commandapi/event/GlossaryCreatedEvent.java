@@ -5,9 +5,8 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class EmployeeDeletedEvent {
+public final class GlossaryCreatedEvent {
 
     private final UUID glossaryId;
-    private final UUID employeeId;
 
 }
