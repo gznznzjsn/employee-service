@@ -1,0 +1,29 @@
+package com.gznznzjsn.employeeservice.commandapi.command.service.impl;
+
+import com.gznznzjsn.employeeservice.commandapi.command.PeriodCreateCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.PeriodEraseAppropriateCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.service.PeriodCommandService;
+import lombok.RequiredArgsConstructor;
+import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
+import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
+
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+public class PeriodCommandServiceImpl implements PeriodCommandService {
+
+    private final ReactorCommandGateway commandGateway;
+
+    @Override
+    public Mono<UUID> create(PeriodCreateCommand command) {
+        return commandGateway.send(command);
+    }
+
+    @Override
+    public Mono<UUID> eraseAppropriate(PeriodEraseAppropriateCommand command) {
+        return commandGateway.send(command);
+    }
+
+}

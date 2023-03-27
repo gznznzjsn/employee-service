@@ -4,6 +4,7 @@ import com.gznznzjsn.employeeservice.commandapi.command.PeriodCreateCommand;
 import com.gznznzjsn.employeeservice.commandapi.event.PeriodCreatedEvent;
 import com.gznznzjsn.employeeservice.core.model.Specialization;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateLifecycle;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Getter
 @AllArgsConstructor
 public class EmployeeEntity {
 

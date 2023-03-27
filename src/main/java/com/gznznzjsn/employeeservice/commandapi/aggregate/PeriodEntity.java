@@ -1,13 +1,13 @@
 package com.gznznzjsn.employeeservice.commandapi.aggregate;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import org.axonframework.modelling.command.EntityId;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
 public class PeriodEntity {
 

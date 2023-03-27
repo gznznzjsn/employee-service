@@ -1,4 +1,4 @@
-package com.gznznzjsn.employeeservice.commandapi.service;
+package com.gznznzjsn.employeeservice.commandapi.command.service;
 
 import com.gznznzjsn.employeeservice.commandapi.command.GlossaryCreateCommand;
 import reactor.core.publisher.Mono;

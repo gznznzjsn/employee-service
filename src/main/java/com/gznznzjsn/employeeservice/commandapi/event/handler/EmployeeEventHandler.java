@@ -1,4 +1,4 @@
-package com.gznznzjsn.employeeservice.commandapi.handler;
+package com.gznznzjsn.employeeservice.commandapi.event.handler;
 
 import com.gznznzjsn.employeeservice.commandapi.event.EmployeeCreatedEvent;
 import com.gznznzjsn.employeeservice.commandapi.event.EmployeeDeletedEvent;

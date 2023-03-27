@@ -1,7 +1,7 @@
-package com.gznznzjsn.employeeservice.commandapi.service.impl;
+package com.gznznzjsn.employeeservice.commandapi.command.service.impl;
 
-import com.gznznzjsn.employeeservice.commandapi.command.PeriodCreateCommand;
-import com.gznznzjsn.employeeservice.commandapi.service.PeriodCommandService;
+import com.gznznzjsn.employeeservice.commandapi.command.GlossaryCreateCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.service.GlossaryCommandService;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.springframework.stereotype.Service;
@@ -11,12 +11,12 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class PeriodCommandServiceImpl implements PeriodCommandService {
+public class GlossaryCommandServiceImpl implements GlossaryCommandService {
 
     private final ReactorCommandGateway commandGateway;
 
     @Override
-    public Mono<UUID> create(PeriodCreateCommand command) {
+    public Mono<UUID> createGlossary(GlossaryCreateCommand command) {
         return commandGateway.send(command);
     }
 

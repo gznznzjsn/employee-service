@@ -1,8 +1,8 @@
-package com.gznznzjsn.employeeservice.commandapi.service.impl;
+package com.gznznzjsn.employeeservice.commandapi.command.service.impl;
 
 import com.gznznzjsn.employeeservice.commandapi.command.EmployeeCreateCommand;
 import com.gznznzjsn.employeeservice.commandapi.command.EmployeeDeleteCommand;
-import com.gznznzjsn.employeeservice.commandapi.service.EmployeeCommandService;
+import com.gznznzjsn.employeeservice.commandapi.command.service.EmployeeCommandService;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.springframework.stereotype.Service;

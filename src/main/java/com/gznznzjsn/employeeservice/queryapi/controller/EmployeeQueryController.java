@@ -3,7 +3,7 @@ package com.gznznzjsn.employeeservice.queryapi.controller;
 
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;
 import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
-import com.gznznzjsn.employeeservice.queryapi.service.EmployeeQueryService;
+import com.gznznzjsn.employeeservice.queryapi.query.service.EmployeeQueryService;
 import com.gznznzjsn.employeeservice.core.web.dto.EmployeeDto;
 import com.gznznzjsn.employeeservice.core.web.dto.mapper.EmployeeMapper;
 import lombok.RequiredArgsConstructor;

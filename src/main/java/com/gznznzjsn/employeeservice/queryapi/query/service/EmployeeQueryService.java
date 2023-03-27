@@ -1,4 +1,4 @@
-package com.gznznzjsn.employeeservice.queryapi.service;
+package com.gznznzjsn.employeeservice.queryapi.query.service;
 
 import com.gznznzjsn.employeeservice.core.model.Employee;
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;

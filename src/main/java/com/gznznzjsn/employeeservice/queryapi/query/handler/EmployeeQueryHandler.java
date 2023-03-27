@@ -1,4 +1,4 @@
-package com.gznznzjsn.employeeservice.queryapi.handler;
+package com.gznznzjsn.employeeservice.queryapi.query.handler;
 
 import com.gznznzjsn.employeeservice.core.model.Employee;
 import com.gznznzjsn.employeeservice.core.model.exception.ResourceNotFoundException;
