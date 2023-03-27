@@ -2,7 +2,7 @@ package com.gznznzjsn.employeeservice.commandapi.controller;
 
 
 import com.gznznzjsn.employeeservice.commandapi.command.PeriodCreateCommand;
-import com.gznznzjsn.employeeservice.commandapi.command.service.PeriodCommandService;
+import com.gznznzjsn.employeeservice.commandapi.service.PeriodCommandService;
 import com.gznznzjsn.employeeservice.core.web.dto.PeriodDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

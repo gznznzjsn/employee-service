@@ -1,8 +1,8 @@
-package com.gznznzjsn.employeeservice.commandapi.command.service.impl;
+package com.gznznzjsn.employeeservice.commandapi.service.impl;
 
 import com.gznznzjsn.employeeservice.commandapi.command.PeriodCreateCommand;
 import com.gznznzjsn.employeeservice.commandapi.command.PeriodEraseAppropriateCommand;
-import com.gznznzjsn.employeeservice.commandapi.command.service.PeriodCommandService;
+import com.gznznzjsn.employeeservice.commandapi.service.PeriodCommandService;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.springframework.stereotype.Service;

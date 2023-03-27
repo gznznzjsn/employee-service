@@ -1,7 +1,7 @@
-package com.gznznzjsn.employeeservice.commandapi.command.service.impl;
+package com.gznznzjsn.employeeservice.commandapi.service.impl;
 
 import com.gznznzjsn.employeeservice.commandapi.command.GlossaryCreateCommand;
-import com.gznznzjsn.employeeservice.commandapi.command.service.GlossaryCommandService;
+import com.gznznzjsn.employeeservice.commandapi.service.GlossaryCommandService;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.springframework.stereotype.Service;

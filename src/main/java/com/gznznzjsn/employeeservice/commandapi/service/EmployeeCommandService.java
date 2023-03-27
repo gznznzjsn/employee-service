@@ -1,4 +1,4 @@
-package com.gznznzjsn.employeeservice.commandapi.command.service;
+package com.gznznzjsn.employeeservice.commandapi.service;
 
 import com.gznznzjsn.employeeservice.commandapi.command.EmployeeCreateCommand;
 import com.gznznzjsn.employeeservice.commandapi.command.EmployeeDeleteCommand;
