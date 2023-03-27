@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface GlossaryCommandService {
 
-    Mono<UUID> createGlossary(GlossaryCreateCommand command);
+    Mono<UUID> create(GlossaryCreateCommand command);
 
 }

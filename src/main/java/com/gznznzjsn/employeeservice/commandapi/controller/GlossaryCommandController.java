@@ -19,8 +19,8 @@ public class GlossaryCommandController {
     private final GlossaryCommandService glossaryCommandService;
 
     @PostMapping
-    public Mono<UUID> createGlossary() {
-        return glossaryCommandService.createGlossary(new GlossaryCreateCommand());
+    public Mono<UUID> create() {
+        return glossaryCommandService.create(new GlossaryCreateCommand());
     }
 
 }

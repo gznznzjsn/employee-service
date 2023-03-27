@@ -16,7 +16,7 @@ public class GlossaryCommandServiceImpl implements GlossaryCommandService {
     private final ReactorCommandGateway commandGateway;
 
     @Override
-    public Mono<UUID> createGlossary(GlossaryCreateCommand command) {
+    public Mono<UUID> create(GlossaryCreateCommand command) {
         return commandGateway.send(command);
     }
 

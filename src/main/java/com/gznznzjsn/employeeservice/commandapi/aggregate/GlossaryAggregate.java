@@ -1,12 +1,12 @@
 package com.gznznzjsn.employeeservice.commandapi.aggregate;
 
 import com.gznznzjsn.employeeservice.commandapi.command.EmployeeCreateCommand;
+import com.gznznzjsn.employeeservice.commandapi.event.*;
+import com.gznznzjsn.employeeservice.core.model.exception.ResourceNotFoundException;
 import com.gznznzjsn.employeeservice.commandapi.command.EmployeeDeleteCommand;
 import com.gznznzjsn.employeeservice.commandapi.command.GlossaryCreateCommand;
 import com.gznznzjsn.employeeservice.commandapi.command.PeriodEraseAppropriateCommand;
-import com.gznznzjsn.employeeservice.commandapi.event.*;
 import com.gznznzjsn.employeeservice.core.model.Specialization;
-import com.gznznzjsn.employeeservice.core.model.exception.ResourceNotFoundException;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @Aggregate
 @NoArgsConstructor
-public class Glossary {
+public class GlossaryAggregate {
 
     @AggregateIdentifier
     private UUID glossaryId;
@@ -32,7 +32,7 @@ public class Glossary {
     private Map<UUID, EmployeeEntity> employees;
 
     @CommandHandler
-    public Glossary(GlossaryCreateCommand command) {
+    public GlossaryAggregate(GlossaryCreateCommand command) {
         AggregateLifecycle.apply(new GlossaryCreatedEvent(
                 UUID.randomUUID()
         ));

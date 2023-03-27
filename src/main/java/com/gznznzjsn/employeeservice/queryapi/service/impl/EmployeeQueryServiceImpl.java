@@ -2,8 +2,8 @@ package com.gznznzjsn.employeeservice.queryapi.service.impl;
 
 import com.gznznzjsn.employeeservice.core.model.Employee;
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;
-import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
 import com.gznznzjsn.employeeservice.queryapi.service.EmployeeQueryService;
+import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;

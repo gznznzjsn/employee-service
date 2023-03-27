@@ -1,9 +1,9 @@
 package com.gznznzjsn.employeeservice.core.persistence;
 
-import com.gznznzjsn.employeeservice.core.persistence.converter.EmployeeReadConverter;
-import com.gznznzjsn.employeeservice.core.persistence.converter.EmployeeWriteConverter;
 import com.gznznzjsn.employeeservice.core.persistence.converter.PeriodReadConverter;
 import com.gznznzjsn.employeeservice.core.persistence.converter.PeriodWriteConverter;
+import com.gznznzjsn.employeeservice.core.persistence.converter.EmployeeReadConverter;
+import com.gznznzjsn.employeeservice.core.persistence.converter.EmployeeWriteConverter;
 import org.axonframework.config.EventProcessingConfigurer;
 import org.axonframework.eventhandling.TrackingEventProcessorConfiguration;
 import org.axonframework.messaging.StreamableMessageSource;
