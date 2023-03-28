@@ -4,6 +4,8 @@ import com.gznznzjsn.employeeservice.core.persistence.converter.PeriodReadConver
 import com.gznznzjsn.employeeservice.core.persistence.converter.PeriodWriteConverter;
 import com.gznznzjsn.employeeservice.core.persistence.converter.EmployeeReadConverter;
 import com.gznznzjsn.employeeservice.core.persistence.converter.EmployeeWriteConverter;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 import org.axonframework.config.EventProcessingConfigurer;
 import org.axonframework.eventhandling.TrackingEventProcessorConfiguration;
 import org.axonframework.messaging.StreamableMessageSource;
@@ -36,6 +38,13 @@ public class RepositoryConfig {
                 TrackingEventProcessorConfiguration.forSingleThreadedProcessing()
                         .andInitialTrackingToken(StreamableMessageSource::createHeadToken);
         processingConfigurer.registerTrackingEventProcessorConfiguration(config -> tepConfig);
+    }
+
+    @Bean
+    public XStream xStream() {
+        XStream xStream = new XStream();
+        xStream.addPermission(AnyTypePermission.ANY);
+        return xStream;
     }
 
 }
