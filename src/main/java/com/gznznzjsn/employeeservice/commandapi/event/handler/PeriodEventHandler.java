@@ -64,10 +64,10 @@ public class PeriodEventHandler {
 
     public Mono<Period> get(UUID periodId) {
         return repository.findById(periodId)
-                .switchIfEmpty(
-                        Mono.error(
-                                new ResourceNotFoundException("Periods with id = " + periodId + " not found!")
-                        )
+                .switchIfEmpty(Mono.error(
+                        new ResourceNotFoundException(
+                                "Periods with id = " + periodId + " not found!"
+                        ))
                 );
     }
 

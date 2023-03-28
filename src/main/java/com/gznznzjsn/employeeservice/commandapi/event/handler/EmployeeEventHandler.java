@@ -32,7 +32,10 @@ public class EmployeeEventHandler {
     @EventHandler
     public void on(EmployeeDeletedEvent event) {
         Mono.just(event)
-                .flatMap(e -> repository.deleteByGlossary_IdAndId(event.getGlossaryId(), event.getEmployeeId()))
+                .flatMap(e -> repository.deleteByGlossary_IdAndId(
+                        event.getGlossaryId(),
+                        event.getEmployeeId()
+                ))
                 .subscribe();
     }
 
