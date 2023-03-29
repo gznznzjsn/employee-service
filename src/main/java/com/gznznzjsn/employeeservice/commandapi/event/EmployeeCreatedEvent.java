@@ -1,16 +1,20 @@
 package com.gznznzjsn.employeeservice.commandapi.event;
 
 import com.gznznzjsn.employeeservice.core.model.Specialization;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public final class EmployeeCreatedEvent {
 
-    private final UUID glossaryId;
-    private final UUID employeeId;
-    private final String name;
-    private final Specialization specialization;
+    private UUID glossaryId;
+    private UUID employeeId;
+    private String name;
+    private Specialization specialization;
 
 }

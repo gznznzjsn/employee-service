@@ -1,15 +1,19 @@
 package com.gznznzjsn.employeeservice.commandapi.command;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import java.util.UUID;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeDeleteCommand {
 
     @TargetAggregateIdentifier
-    private final UUID glossaryId;
-    private final UUID employeeId;
+    private UUID glossaryId;
+    private UUID employeeId;
 
 }
