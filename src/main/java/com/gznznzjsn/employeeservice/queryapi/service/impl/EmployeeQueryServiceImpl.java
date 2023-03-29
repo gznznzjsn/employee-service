@@ -2,11 +2,10 @@ package com.gznznzjsn.employeeservice.queryapi.service.impl;
 
 import com.gznznzjsn.employeeservice.core.model.Employee;
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;
-import com.gznznzjsn.employeeservice.queryapi.service.EmployeeQueryService;
 import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
+import com.gznznzjsn.employeeservice.queryapi.query.handler.EmployeeQueryHandler;
+import com.gznznzjsn.employeeservice.queryapi.service.EmployeeQueryService;
 import lombok.RequiredArgsConstructor;
-import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
-import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -15,16 +14,16 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class EmployeeQueryServiceImpl implements EmployeeQueryService {
 
-    private final ReactorQueryGateway queryGateway;
+    private final EmployeeQueryHandler queryHandler;
 
     @Override
     public Flux<Employee> getAll(GetAllEmployeesQuery getAllEmployeesQuery) {
-        return queryGateway.query(getAllEmployeesQuery, ResponseTypes.multipleInstancesOf(Employee.class)).flatMapMany(Flux::fromIterable);
+        return queryHandler.handle(getAllEmployeesQuery);
     }
 
     @Override
     public Mono<Employee> get(GetEmployeeByIdQuery getEmployeeByIdQuery) {
-        return queryGateway.query(getEmployeeByIdQuery, Employee.class);
+        return queryHandler.handle(getEmployeeByIdQuery);
     }
 
 }

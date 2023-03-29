@@ -1,12 +1,16 @@
 package com.gznznzjsn.employeeservice.commandapi.aggregate;
 
+import com.gznznzjsn.employeeservice.commandapi.aggregate.sourcing.EmployeeSourcingHandler;
+import com.gznznzjsn.employeeservice.commandapi.aggregate.sourcing.PeriodSourcingHandler;
 import com.gznznzjsn.employeeservice.commandapi.command.EmployeeCreateCommand;
-import com.gznznzjsn.employeeservice.commandapi.event.*;
-import com.gznznzjsn.employeeservice.core.model.exception.ResourceNotFoundException;
 import com.gznznzjsn.employeeservice.commandapi.command.EmployeeDeleteCommand;
 import com.gznznzjsn.employeeservice.commandapi.command.GlossaryCreateCommand;
 import com.gznznzjsn.employeeservice.commandapi.command.PeriodEraseAppropriateCommand;
+import com.gznznzjsn.employeeservice.commandapi.command.handler.EmployeeCommandHandler;
+import com.gznznzjsn.employeeservice.commandapi.command.handler.PeriodCommandHandler;
+import com.gznznzjsn.employeeservice.commandapi.event.*;
 import com.gznznzjsn.employeeservice.core.model.Specialization;
+import com.gznznzjsn.employeeservice.core.model.exception.ResourceNotFoundException;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -23,7 +27,7 @@ import java.util.UUID;
 
 @Aggregate
 @NoArgsConstructor
-public class GlossaryAggregate {
+public class GlossaryAggregate implements EmployeeCommandHandler, PeriodCommandHandler, EmployeeSourcingHandler, PeriodSourcingHandler {
 
     @AggregateIdentifier
     private UUID glossaryId;
@@ -44,7 +48,7 @@ public class GlossaryAggregate {
         this.employees = new HashMap<>();
     }
 
-    @CommandHandler
+    @Override
     public void handle(EmployeeCreateCommand command) {
         AggregateLifecycle.apply(new EmployeeCreatedEvent(
                 command.getGlossaryId(),
@@ -54,7 +58,7 @@ public class GlossaryAggregate {
         ));
     }
 
-    @EventSourcingHandler
+    @Override
     public void on(EmployeeCreatedEvent event) {
         employees.put(event.getEmployeeId(), new EmployeeEntity(
                 event.getEmployeeId(),
@@ -63,7 +67,7 @@ public class GlossaryAggregate {
         ));
     }
 
-    @CommandHandler
+    @Override
     public void handle(EmployeeDeleteCommand command) {
         AggregateLifecycle.apply(new EmployeeDeletedEvent(
                 command.getGlossaryId(),
@@ -71,12 +75,12 @@ public class GlossaryAggregate {
         ));
     }
 
-    @EventSourcingHandler
+    @Override
     public void on(EmployeeDeletedEvent event) {
         employees.remove(event.getEmployeeId());
     }
 
-    @CommandHandler
+    @Override
     public void handle(PeriodEraseAppropriateCommand command) {
         Specialization specialization = command.getSpecialization();
         LocalDateTime arrivalTime = command.getArrivalTime();
@@ -86,9 +90,17 @@ public class GlossaryAggregate {
                 .flatMap(e -> e.getPeriods().values().stream())
                 .filter(p -> p.getDate().isAfter(arrivalTime.toLocalDate()))
                 .filter(p -> p.getEnd() - p.getStart() >= command.getTotalDuration())
-                .min(Comparator.comparing(PeriodEntity::getDate).thenComparing(PeriodEntity::getStart))
+                .min(
+                        Comparator.comparing(PeriodEntity::getDate)
+                                .thenComparing(PeriodEntity::getStart)
+                )
                 .orElseThrow(() ->
-                        new ResourceNotFoundException("No free time periods for such parameters: arrival time = " + arrivalTime + ", specialization = " + specialization.name() + ", total assignment duration = " + command.getTotalDuration())
+                        new ResourceNotFoundException(
+                                "No free time periods for such parameters: arrival time = "
+                                + arrivalTime
+                                + ", specialization = " + specialization.name()
+                                + ", total assignment duration = " + command.getTotalDuration()
+                        )
                 );
         if (period.getEnd() - period.getStart() == totalDuration) {
             AggregateLifecycle.apply(new PeriodDeletedEvent(
@@ -104,7 +116,7 @@ public class GlossaryAggregate {
         }
     }
 
-    @EventSourcingHandler
+    @Override
     public void on(PeriodDeletedEvent event) {
         EmployeeEntity employee = employees.values().stream()
                 .filter(e -> e.getPeriods().containsKey(event.getPeriodId()))
@@ -114,7 +126,7 @@ public class GlossaryAggregate {
         employee.getPeriods().remove(event.getPeriodId());
     }
 
-    @EventSourcingHandler
+    @Override
     public void on(PeriodUpdatedEvent event) {
         EmployeeEntity employee = employees.values().stream()
                 .filter(e -> e.getPeriods().containsKey(event.getPeriodId()))

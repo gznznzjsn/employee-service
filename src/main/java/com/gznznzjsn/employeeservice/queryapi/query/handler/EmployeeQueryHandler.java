@@ -6,11 +6,9 @@ import com.gznznzjsn.employeeservice.core.persistence.repository.EmployeeReposit
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;
 import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
 import lombok.RequiredArgsConstructor;
-import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -18,20 +16,20 @@ public class EmployeeQueryHandler {
 
     private final EmployeeRepository repository;
 
-    @QueryHandler
-    public List<Employee> handle(GetAllEmployeesQuery query) {
-        return repository.findAllByGlossary_Id(query.getGlossaryId()).collectList().block();
+    public Flux<Employee> handle(GetAllEmployeesQuery query) {
+        return repository.findAllByGlossaryId(query.getGlossaryId());
     }
 
-    @QueryHandler
-    public Employee handle(GetEmployeeByIdQuery query) {
+    public Mono<Employee> handle(GetEmployeeByIdQuery query) {
         return repository
-                .findByGlossary_IdAndId(query.getGlossaryId(),query.getEmployeeId())
+                .findByGlossaryIdAndId(query.getGlossaryId(), query.getEmployeeId())
                 .switchIfEmpty(
-                        Mono.error(
-                                new ResourceNotFoundException("Employee with id=" + query.getEmployeeId() + " not found!") //todo message
-                        )
-                ).block();
+                        Mono.error(new ResourceNotFoundException(
+                                "Employee with id = " + query.getEmployeeId()
+                                + " in glossary with id = " + query.getGlossaryId()
+                                + " not found!"
+                        ))
+                );
     }
 
 }
