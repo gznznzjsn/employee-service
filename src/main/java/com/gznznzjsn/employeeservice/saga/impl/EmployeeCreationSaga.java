@@ -6,7 +6,7 @@ import com.gznznzjsn.employeeservice.saga.EmployeeCreator;
 import com.gznznzjsn.saga.command.EquipmentAssignCommand;
 import com.gznznzjsn.saga.event.EquipmentAssignedEvent;
 import jakarta.inject.Inject;
-import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.modelling.saga.SagaLifecycle;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,23 +20,23 @@ public class EmployeeCreationSaga implements EmployeeCreator {
     private UUID inventoryId;
 
     @Inject
-    private transient ReactorCommandGateway commandGateway;
+    private transient CommandGateway commandGateway;
 
     @Override
     public void handle(EmployeeCreatedEvent event) {
         SagaLifecycle.associateWith("inventoryId", inventoryId.toString());
-        commandGateway.send(new EquipmentAssignCommand(
-                        inventoryId,
-                        event.getSpecialization().toString(),
-                        event.getEmployeeId()
-                ))
-                .onErrorResume(o1 -> commandGateway.send(
-                        new EmployeeDeleteCommand(
-                                event.getGlossaryId(),
-                                event.getEmployeeId()
-                        )
-                ))
-                .subscribe();
+        try {
+            commandGateway.sendAndWait(new EquipmentAssignCommand(
+                    inventoryId,
+                    event.getSpecialization().toString(),
+                    event.getEmployeeId()
+            ));
+        } catch (Exception e) {
+            commandGateway.sendAndWait(new EmployeeDeleteCommand(
+                    event.getGlossaryId(),
+                    event.getEmployeeId()
+            ));
+        }
     }
 
     @Override
