@@ -31,7 +31,10 @@ public class EmployeeQueryController {
     }
 
     @GetMapping("/{employeeId}")
-    public Mono<EmployeeDto> get(@PathVariable UUID glossaryId, @PathVariable UUID employeeId) {
+    public Mono<EmployeeDto> get(
+            @PathVariable UUID glossaryId,
+            @PathVariable UUID employeeId
+    ) {
         return employeeQueryService
                 .get(new GetEmployeeByIdQuery(glossaryId, employeeId))
                 .map(employeeMapper::toDto);

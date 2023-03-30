@@ -5,7 +5,7 @@ import org.axonframework.commandhandling.CommandHandler;
 
 public interface PeriodCommandHandler {
 
-    @CommandHandler
+    @CommandHandler(routingKey = "glossaryId")
     void handle(PeriodEraseAppropriateCommand command);
 
 }

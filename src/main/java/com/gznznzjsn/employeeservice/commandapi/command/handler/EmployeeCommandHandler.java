@@ -6,10 +6,10 @@ import org.axonframework.commandhandling.CommandHandler;
 
 public interface EmployeeCommandHandler {
 
-    @CommandHandler
+    @CommandHandler(routingKey = "glossaryId")
     void handle(EmployeeCreateCommand command);
 
-    @CommandHandler
+    @CommandHandler(routingKey = "glossaryId")
     void handle(EmployeeDeleteCommand command);
 
 }

@@ -3,7 +3,7 @@ package com.gznznzjsn.employeeservice.queryapi.service.impl;
 import com.gznznzjsn.employeeservice.core.model.Employee;
 import com.gznznzjsn.employeeservice.queryapi.query.GetAllEmployeesQuery;
 import com.gznznzjsn.employeeservice.queryapi.query.GetEmployeeByIdQuery;
-import com.gznznzjsn.employeeservice.queryapi.query.handler.EmployeeQueryHandler;
+import com.gznznzjsn.employeeservice.queryapi.query.handler.impl.EmployeeQueryHandlerImpl;
 import com.gznznzjsn.employeeservice.queryapi.service.EmployeeQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class EmployeeQueryServiceImpl implements EmployeeQueryService {
 
-    private final EmployeeQueryHandler queryHandler;
+    private final EmployeeQueryHandlerImpl queryHandler;
 
     @Override
     public Flux<Employee> getAll(GetAllEmployeesQuery getAllEmployeesQuery) {
