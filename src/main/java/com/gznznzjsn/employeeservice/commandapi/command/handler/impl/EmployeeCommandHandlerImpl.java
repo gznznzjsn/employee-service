@@ -38,7 +38,8 @@ public class EmployeeCommandHandlerImpl implements EmployeeCommandHandler {
                                 command.getGlossaryId(),
                                 UUID.randomUUID(),
                                 command.getName(),
-                                command.getSpecialization()
+                                command.getSpecialization(),
+                                command.getInventoryId()
                         )
                 ));
     }

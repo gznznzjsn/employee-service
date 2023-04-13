@@ -16,5 +16,6 @@ public final class EmployeeCreatedEvent {
     private UUID employeeId;
     private String name;
     private Specialization specialization;
+    private UUID inventoryId;
 
 }
