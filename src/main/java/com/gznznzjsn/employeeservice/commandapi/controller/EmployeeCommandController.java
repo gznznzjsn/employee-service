@@ -33,10 +33,11 @@ public class EmployeeCommandController {
     @PostMapping
     public Mono<UUID> create(
             @Validated(OnCreateEmployee.class) @RequestBody EmployeeDto employeeDto,
-            @PathVariable UUID glossaryId
+            @PathVariable UUID glossaryId,
+            @RequestParam UUID inventoryId
     ) {
         return Mono.just(employeeDto)
-                .map(e -> new EmployeeCreateCommand(glossaryId, e.name(), e.specialization()))
+                .map(e -> new EmployeeCreateCommand(glossaryId, e.name(), e.specialization(), inventoryId))
                 .flatMap(employeeCommandService::createEmployee);
     }
 
