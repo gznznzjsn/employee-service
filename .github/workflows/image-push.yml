@@ -33,18 +33,19 @@ jobs:
         docker push ${{secrets.DOCKER_USER}}/employee-service:latest
         
   deployment:
-   runs-on: 
-    - self-hosted
-    - k8s-api
+    needs: build
+    runs-on: 
+      - self-hosted
+      - k8s-api
     
-   steps:
-   - name: Checkout
-     uses: actions/checkout@v3
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
  
-   - name: rollout
-     run: |
-      set -ex
-      cd $HOME
-      wget https://dl.k8s.io/release/v1.26.0/bin/linux/arm64/kubectl
-      chmod +x ./kubectl
-      ~/kubectl rollout restart deployment employee-service -n default
+    - name: rollout
+      run: |
+        set -ex
+        cd $HOME
+        wget https://dl.k8s.io/release/v1.26.0/bin/linux/arm64/kubectl
+        chmod +x ./kubectl
+        ~/kubectl rollout restart deployment employee-service -n default
