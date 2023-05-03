@@ -17,12 +17,12 @@ public class EmployeeCommandServiceImpl implements EmployeeCommandService {
     private final ReactorCommandGateway commandGateway;
 
     @Override
-    public Mono<UUID> createEmployee(EmployeeCreateCommand command) {
+    public Mono<UUID> createEmployee(final EmployeeCreateCommand command) {
         return commandGateway.send(command);
     }
 
     @Override
-    public Mono<UUID> delete(EmployeeDeleteCommand command) {
+    public Mono<UUID> delete(final EmployeeDeleteCommand command) {
         return commandGateway.send(command);
     }
 

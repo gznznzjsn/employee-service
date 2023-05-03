@@ -25,15 +25,15 @@ public class EmployeeQueryController {
     private final EmployeeQueryService employeeQueryService;
 
     @GetMapping
-    public Flux<EmployeeDto> getAll(@PathVariable UUID glossaryId) {
+    public Flux<EmployeeDto> getAll(final @PathVariable UUID glossaryId) {
         return employeeQueryService.getAll(new GetAllEmployeesQuery(glossaryId))
                 .map(employeeMapper::toDto);
     }
 
     @GetMapping("/{employeeId}")
     public Mono<EmployeeDto> get(
-            @PathVariable UUID glossaryId,
-            @PathVariable UUID employeeId
+            final @PathVariable UUID glossaryId,
+            final @PathVariable UUID employeeId
     ) {
         return employeeQueryService
                 .get(new GetEmployeeByIdQuery(glossaryId, employeeId))

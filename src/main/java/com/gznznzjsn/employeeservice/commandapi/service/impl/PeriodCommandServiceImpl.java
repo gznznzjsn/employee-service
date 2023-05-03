@@ -17,12 +17,14 @@ public class PeriodCommandServiceImpl implements PeriodCommandService {
     private final ReactorCommandGateway commandGateway;
 
     @Override
-    public Mono<UUID> create(PeriodCreateCommand command) {
+    public Mono<UUID> create(final PeriodCreateCommand command) {
         return commandGateway.send(command);
     }
 
     @Override
-    public Mono<UUID> eraseAppropriate(PeriodEraseAppropriateCommand command) {
+    public Mono<UUID> eraseAppropriate(
+            final PeriodEraseAppropriateCommand command
+    ) {
         return commandGateway.send(command);
     }
 

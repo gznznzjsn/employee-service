@@ -17,12 +17,14 @@ public class EmployeeQueryServiceImpl implements EmployeeQueryService {
     private final EmployeeQueryHandler queryHandler;
 
     @Override
-    public Flux<Employee> getAll(GetAllEmployeesQuery getAllEmployeesQuery) {
+    public Flux<Employee> getAll(
+            final GetAllEmployeesQuery getAllEmployeesQuery
+    ) {
         return queryHandler.handle(getAllEmployeesQuery);
     }
 
     @Override
-    public Mono<Employee> get(GetEmployeeByIdQuery getEmployeeByIdQuery) {
+    public Mono<Employee> get(final GetEmployeeByIdQuery getEmployeeByIdQuery) {
         return queryHandler.handle(getEmployeeByIdQuery);
     }
 

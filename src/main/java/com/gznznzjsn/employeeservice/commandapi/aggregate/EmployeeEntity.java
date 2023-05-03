@@ -28,7 +28,7 @@ public class EmployeeEntity {
     private final Map<UUID, PeriodEntity> periods = new HashMap<>();
 
     @CommandHandler
-    public void handle(PeriodCreateCommand command) {
+    public void handle(final PeriodCreateCommand command) {
         AggregateLifecycle.apply(new PeriodCreatedEvent(
                 this.employeeId,
                 UUID.randomUUID(),
@@ -40,7 +40,7 @@ public class EmployeeEntity {
     }
 
     @EventSourcingHandler
-    public void on(PeriodCreatedEvent event) {
+    public void on(final PeriodCreatedEvent event) {
         this.periods.put(event.getPeriodId(), new PeriodEntity(
                 event.getPeriodId(),
                 event.getDate(),

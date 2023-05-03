@@ -18,18 +18,23 @@ public class EmployeeQueryHandlerImpl implements EmployeeQueryHandler {
     private final EmployeeRepository repository;
 
     @Override
-    public Flux<Employee> handle(GetAllEmployeesQuery query) {
+    public Flux<Employee> handle(final GetAllEmployeesQuery query) {
         return repository.findAllByGlossaryId(query.getGlossaryId());
     }
 
     @Override
-    public Mono<Employee> handle(GetEmployeeByIdQuery query) {
+    public Mono<Employee> handle(final GetEmployeeByIdQuery query) {
         return repository
-                .findByGlossaryIdAndId(query.getGlossaryId(), query.getEmployeeId())
+                .findByGlossaryIdAndId(
+                        query.getGlossaryId(),
+                        query.getEmployeeId()
+                )
                 .switchIfEmpty(
                         Mono.error(new ResourceNotFoundException(
-                                "Employee with id = " + query.getEmployeeId()
-                                + " in glossary with id = " + query.getGlossaryId()
+                                "Employee with id = "
+                                + query.getEmployeeId()
+                                + " in glossary with id = "
+                                + query.getGlossaryId()
                                 + " not found!"
                         ))
                 );

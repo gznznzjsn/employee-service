@@ -21,7 +21,8 @@ public class ControllerAdvice {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionDto handleResourceNotFound(
-            ResourceNotFoundException e) {
+            final ResourceNotFoundException e
+    ) {
         log.error(e.getMessage());
         e.printStackTrace();
         return ExceptionDto.builder()
@@ -32,7 +33,7 @@ public class ControllerAdvice {
     @ExceptionHandler({AccessDeniedException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ExceptionDto handleAccessDenied(
-            AccessDeniedException e
+            final AccessDeniedException e
     ) {
         log.error(e.getMessage());
         e.printStackTrace();
@@ -43,7 +44,9 @@ public class ControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionDto handleMethodArgumentNotValid(MethodArgumentNotValidException e) {
+    public ExceptionDto handleMethodArgumentNotValid(
+            final MethodArgumentNotValidException e
+    ) {
         log.error(e.getMessage());
         e.printStackTrace();
         Map<String, String> otherInfo = e.getBindingResult()
@@ -51,7 +54,9 @@ public class ControllerAdvice {
                 .collect(Collectors.toMap(
                                 (FieldError::getField),
                                 (fieldError ->
-                                        fieldError.getDefaultMessage() == null ? "No message" : fieldError.getDefaultMessage()
+                                        fieldError.getDefaultMessage() == null
+                                                ? "No message"
+                                                : fieldError.getDefaultMessage()
                                 )
                         )
                 );
@@ -64,7 +69,7 @@ public class ControllerAdvice {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionDto handleOther(
-            Exception e
+            final Exception e
     ) {
         log.error(e.getMessage());
         e.printStackTrace();

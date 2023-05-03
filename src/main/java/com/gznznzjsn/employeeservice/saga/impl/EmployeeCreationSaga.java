@@ -17,8 +17,11 @@ public class EmployeeCreationSaga implements EmployeeCreator {
     private transient CommandGateway commandGateway;
 
     @Override
-    public void handle(EmployeeCreatedEvent event) {
-        SagaLifecycle.associateWith("inventoryId", event.getInventoryId().toString());
+    public void handle(final EmployeeCreatedEvent event) {
+        SagaLifecycle.associateWith(
+                "inventoryId",
+                event.getInventoryId().toString()
+        );
         try {
             commandGateway.sendAndWait(new EquipmentAssignCommand(
                     event.getInventoryId(),
@@ -34,7 +37,7 @@ public class EmployeeCreationSaga implements EmployeeCreator {
     }
 
     @Override
-    public void handle(EquipmentAssignedEvent event) {
+    public void handle(final EquipmentAssignedEvent event) {
         SagaLifecycle.end();
     }
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 public class EmployeeReadConverter implements Converter<Row, Employee> {
 
     @Override
-    public Employee convert(Row source) {
+    public Employee convert(final Row source) {
         return Employee.builder()
                 .id(source.get("employee_id", UUID.class))
                 .glossary(Glossary.builder()
@@ -22,7 +22,11 @@ public class EmployeeReadConverter implements Converter<Row, Employee> {
                         .build()
                 )
                 .name(source.get("name", String.class))
-                .specialization(Specialization.valueOf(source.get("specialization", String.class)))
+                .specialization(
+                        Specialization.valueOf(
+                                source.get("specialization", String.class)
+                        )
+                )
                 .build();
     }
 
