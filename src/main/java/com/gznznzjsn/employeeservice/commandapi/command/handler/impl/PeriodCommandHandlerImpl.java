@@ -27,9 +27,9 @@ public class PeriodCommandHandlerImpl implements PeriodCommandHandler {
         repository.load(command.getGlossaryId().toString())
                 .execute(glossaryAggregate -> {
                     Specialization specialization = command.getSpecialization();
-                    LocalDateTime arrivalTime = command.getArrivalTime();
-                    Integer totalDuration = command.getTotalDuration();
-                    PeriodEntity period = glossaryAggregate.getEmployees()
+                    LocalDateTime time = command.getArrivalTime();
+                    Integer duration = command.getDuration();
+                    PeriodEntity period = glossaryAggregate.getEmployeeMap()
                             .values().stream()
                             .filter(
                                     e -> e.getSpecialization()
@@ -38,11 +38,11 @@ public class PeriodCommandHandlerImpl implements PeriodCommandHandler {
                             .flatMap(e -> e.getPeriods().values().stream())
                             .filter(
                                     p -> p.getDate()
-                                            .isAfter(arrivalTime.toLocalDate())
+                                            .isAfter(time.toLocalDate())
                             )
                             .filter(
                                     p -> p.getEnd() - p.getStart()
-                                         >= command.getTotalDuration()
+                                         >= command.getDuration()
                             )
                             .min(
                                     Comparator.comparing(PeriodEntity::getDate)
@@ -54,14 +54,14 @@ public class PeriodCommandHandlerImpl implements PeriodCommandHandler {
                                     () -> new ResourceNotFoundException(
                                             "No free time periods for such "
                                             + "parameters: arrival time = "
-                                            + arrivalTime
+                                            + time
                                             + ", specialization = "
                                             + specialization.name()
                                             + ", total assignment duration = "
-                                            + command.getTotalDuration()
+                                            + command.getDuration()
                                     )
                             );
-                    if (period.getEnd() - period.getStart() == totalDuration) {
+                    if (period.getEnd() - period.getStart() == duration) {
                         AggregateLifecycle.apply(new PeriodDeletedEvent(
                                 period.getPeriodId()
                         ));
@@ -69,7 +69,7 @@ public class PeriodCommandHandlerImpl implements PeriodCommandHandler {
                         AggregateLifecycle.apply(new PeriodUpdatedEvent(
                                 period.getPeriodId(),
                                 period.getDate(),
-                                period.getStart() + totalDuration,
+                                period.getStart() + duration,
                                 period.getEnd()
                         ));
                     }

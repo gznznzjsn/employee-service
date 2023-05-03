@@ -27,23 +27,23 @@ import java.util.UUID;
 @RequestMapping("/employee-api/v1/glossaries/{glossaryId}/employees")
 public class EmployeeCommandController {
 
-    private final EmployeeCommandService employeeCommandService;
-    private final PeriodCommandService periodCommandService;
+    private final EmployeeCommandService employeeService;
+    private final PeriodCommandService periodService;
 
     @PostMapping
     public Mono<UUID> create(
             final @Validated(OnCreateEmployee.class)
             @RequestBody
-            EmployeeDto employeeDto,
+            EmployeeDto dto,
             final @PathVariable UUID glossaryId,
             final @RequestParam UUID inventoryId
     ) {
-        return Mono.just(employeeDto)
+        return Mono.just(dto)
                 .map(e -> new EmployeeCreateCommand(
                         glossaryId, e.name(),
                         e.specialization(), inventoryId
                 ))
-                .flatMap(employeeCommandService::createEmployee);
+                .flatMap(employeeService::create);
     }
 
     @DeleteMapping("/{employeeId}")
@@ -51,7 +51,7 @@ public class EmployeeCommandController {
             final @PathVariable UUID employeeId,
             final @PathVariable UUID glossaryId
     ) {
-        return employeeCommandService.delete(
+        return employeeService.delete(
                 new EmployeeDeleteCommand(glossaryId, employeeId)
         );
     }
@@ -63,7 +63,7 @@ public class EmployeeCommandController {
             final @RequestParam Specialization specialization,
             final @RequestParam Integer totalDuration
     ) {
-        return periodCommandService.eraseAppropriate(
+        return periodService.eraseAppropriate(
                 new PeriodEraseAppropriateCommand(
                         glossaryId, arrivalTime,
                         specialization, totalDuration

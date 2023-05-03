@@ -22,11 +22,11 @@ import java.util.UUID;
 public class EmployeeQueryController {
 
     private final EmployeeMapper employeeMapper;
-    private final EmployeeQueryService employeeQueryService;
+    private final EmployeeQueryService employeeService;
 
     @GetMapping
     public Flux<EmployeeDto> getAll(final @PathVariable UUID glossaryId) {
-        return employeeQueryService.getAll(new GetAllEmployeesQuery(glossaryId))
+        return employeeService.getAll(new GetAllEmployeesQuery(glossaryId))
                 .map(employeeMapper::toDto);
     }
 
@@ -35,7 +35,7 @@ public class EmployeeQueryController {
             final @PathVariable UUID glossaryId,
             final @PathVariable UUID employeeId
     ) {
-        return employeeQueryService
+        return employeeService
                 .get(new GetEmployeeByIdQuery(glossaryId, employeeId))
                 .map(employeeMapper::toDto);
     }

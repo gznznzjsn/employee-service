@@ -16,11 +16,11 @@ import java.util.UUID;
 @RequestMapping("/employee-api/v1/glossaries")
 public class GlossaryCommandController {
 
-    private final GlossaryCommandService glossaryCommandService;
+    private final GlossaryCommandService glossaryService;
 
     @PostMapping
     public Mono<UUID> create() {
-        return glossaryCommandService.create(new GlossaryCreateCommand());
+        return glossaryService.create(new GlossaryCreateCommand());
     }
 
 }

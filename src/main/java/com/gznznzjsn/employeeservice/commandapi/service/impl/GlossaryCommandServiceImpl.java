@@ -13,11 +13,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GlossaryCommandServiceImpl implements GlossaryCommandService {
 
-    private final ReactorCommandGateway commandGateway;
+    private final ReactorCommandGateway gateway;
 
     @Override
     public Mono<UUID> create(final GlossaryCreateCommand command) {
-        return commandGateway.send(command);
+        return gateway.send(command);
     }
 
 }

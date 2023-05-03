@@ -26,10 +26,10 @@ public class PeriodCommandController {
 
     @PostMapping
     public Mono<UUID> create(
-            final @RequestBody PeriodDto periodDto,
+            final @RequestBody PeriodDto dto,
             final @PathVariable UUID glossaryId,
             final @PathVariable UUID employeeId) {
-        return Mono.just(periodDto)
+        return Mono.just(dto)
                 .map(p -> new PeriodCreateCommand(
                         glossaryId, employeeId, p.date(), p.start(), p.end()
                 ))

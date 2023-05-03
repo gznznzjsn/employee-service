@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface EmployeeCommandService {
 
-    Mono<UUID> createEmployee(EmployeeCreateCommand command);
+    Mono<UUID> create(EmployeeCreateCommand command);
 
     Mono<UUID> delete(EmployeeDeleteCommand command);
 

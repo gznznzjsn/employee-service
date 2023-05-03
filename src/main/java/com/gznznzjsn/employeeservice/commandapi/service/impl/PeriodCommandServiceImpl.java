@@ -14,18 +14,18 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PeriodCommandServiceImpl implements PeriodCommandService {
 
-    private final ReactorCommandGateway commandGateway;
+    private final ReactorCommandGateway gateway;
 
     @Override
     public Mono<UUID> create(final PeriodCreateCommand command) {
-        return commandGateway.send(command);
+        return gateway.send(command);
     }
 
     @Override
     public Mono<UUID> eraseAppropriate(
             final PeriodEraseAppropriateCommand command
     ) {
-        return commandGateway.send(command);
+        return gateway.send(command);
     }
 
 }

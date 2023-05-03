@@ -32,7 +32,7 @@ public class GlossaryAggregate
     private UUID glossaryId;
 
     @AggregateMember
-    private Map<UUID, EmployeeEntity> employees;
+    private Map<UUID, EmployeeEntity> employeeMap;
 
     @CommandHandler
     public GlossaryAggregate(final GlossaryCreateCommand command) {
@@ -44,13 +44,13 @@ public class GlossaryAggregate
     @EventSourcingHandler
     public void on(final GlossaryCreatedEvent event) {
         this.glossaryId = event.getGlossaryId();
-        this.employees = new HashMap<>();
+        this.employeeMap = new HashMap<>();
     }
 
 
     @Override
     public void on(final EmployeeCreatedEvent event) {
-        employees.put(event.getEmployeeId(), new EmployeeEntity(
+        employeeMap.put(event.getEmployeeId(), new EmployeeEntity(
                 event.getEmployeeId(),
                 event.getName(),
                 event.getSpecialization()
@@ -60,12 +60,12 @@ public class GlossaryAggregate
 
     @Override
     public void on(final EmployeeDeletedEvent event) {
-        employees.remove(event.getEmployeeId());
+        employeeMap.remove(event.getEmployeeId());
     }
 
     @Override
     public void on(final PeriodDeletedEvent event) {
-        EmployeeEntity employee = employees.values().stream()
+        EmployeeEntity employee = employeeMap.values().stream()
                 .filter(e -> e.getPeriods().containsKey(event.getPeriodId()))
                 .findAny()
                 .orElseThrow(() ->
@@ -77,7 +77,7 @@ public class GlossaryAggregate
 
     @Override
     public void on(final PeriodUpdatedEvent event) {
-        EmployeeEntity employee = employees.values().stream()
+        EmployeeEntity employee = employeeMap.values().stream()
                 .filter(e -> e.getPeriods().containsKey(event.getPeriodId()))
                 .findAny()
                 .orElseThrow(() ->

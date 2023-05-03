@@ -14,7 +14,7 @@ import org.axonframework.spring.stereotype.Saga;
 public class EmployeeCreationSaga implements EmployeeCreator {
 
     @Inject
-    private transient CommandGateway commandGateway;
+    private transient CommandGateway gateway;
 
     @Override
     public void handle(final EmployeeCreatedEvent event) {
@@ -23,13 +23,13 @@ public class EmployeeCreationSaga implements EmployeeCreator {
                 event.getInventoryId().toString()
         );
         try {
-            commandGateway.sendAndWait(new EquipmentAssignCommand(
+            gateway.sendAndWait(new EquipmentAssignCommand(
                     event.getInventoryId(),
                     event.getSpecialization().toString(),
                     event.getEmployeeId()
             ));
         } catch (Exception e) {
-            commandGateway.sendAndWait(new EmployeeDeleteCommand(
+            gateway.sendAndWait(new EmployeeDeleteCommand(
                     event.getGlossaryId(),
                     event.getEmployeeId()
             ));

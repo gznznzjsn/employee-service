@@ -14,18 +14,18 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class EmployeeQueryServiceImpl implements EmployeeQueryService {
 
-    private final EmployeeQueryHandler queryHandler;
+    private final EmployeeQueryHandler employeeHandler;
 
     @Override
     public Flux<Employee> getAll(
             final GetAllEmployeesQuery getAllEmployeesQuery
     ) {
-        return queryHandler.handle(getAllEmployeesQuery);
+        return employeeHandler.handle(getAllEmployeesQuery);
     }
 
     @Override
     public Mono<Employee> get(final GetEmployeeByIdQuery getEmployeeByIdQuery) {
-        return queryHandler.handle(getEmployeeByIdQuery);
+        return employeeHandler.handle(getEmployeeByIdQuery);
     }
 
 }
