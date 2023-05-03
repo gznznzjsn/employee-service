@@ -18,6 +18,6 @@ public class PeriodEraseAppropriateCommand {
     private UUID glossaryId;
     private LocalDateTime arrivalTime;
     private Specialization specialization;
-    private Integer totalDuration;
+    private Integer duration;
 
 }

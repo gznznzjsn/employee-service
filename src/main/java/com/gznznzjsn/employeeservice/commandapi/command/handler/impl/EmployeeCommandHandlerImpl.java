@@ -20,7 +20,7 @@ public class EmployeeCommandHandlerImpl implements EmployeeCommandHandler {
     private final Repository<GlossaryAggregate> repository;
 
     @Override
-    public void handle(EmployeeDeleteCommand command) {
+    public void handle(final EmployeeDeleteCommand command) {
         repository.load(command.getGlossaryId().toString())
                 .execute(glossaryAggregate -> AggregateLifecycle.apply(
                         new EmployeeDeletedEvent(
@@ -31,7 +31,7 @@ public class EmployeeCommandHandlerImpl implements EmployeeCommandHandler {
     }
 
     @Override
-    public void handle(EmployeeCreateCommand command) {
+    public void handle(final EmployeeCreateCommand command) {
         repository.load(command.getGlossaryId().toString())
                 .execute(glossaryAggregate -> AggregateLifecycle.apply(
                         new EmployeeCreatedEvent(

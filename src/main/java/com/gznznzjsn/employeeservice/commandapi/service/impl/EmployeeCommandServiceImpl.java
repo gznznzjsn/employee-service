@@ -14,16 +14,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EmployeeCommandServiceImpl implements EmployeeCommandService {
 
-    private final ReactorCommandGateway commandGateway;
+    private final ReactorCommandGateway gateway;
 
     @Override
-    public Mono<UUID> createEmployee(EmployeeCreateCommand command) {
-        return commandGateway.send(command);
+    public Mono<UUID> create(final EmployeeCreateCommand command) {
+        return gateway.send(command);
     }
 
     @Override
-    public Mono<UUID> delete(EmployeeDeleteCommand command) {
-        return commandGateway.send(command);
+    public Mono<UUID> delete(final EmployeeDeleteCommand command) {
+        return gateway.send(command);
     }
 
 }

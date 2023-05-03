@@ -21,7 +21,7 @@ public class PeriodEventHandlerImpl implements PeriodEventHandler {
     private final PeriodRepository repository;
 
     @Override
-    public void on(PeriodCreatedEvent event) {
+    public void on(final PeriodCreatedEvent event) {
         Mono.just(event)
                 .flatMap(e -> repository.save(
                                 Period.builder()
@@ -39,12 +39,12 @@ public class PeriodEventHandlerImpl implements PeriodEventHandler {
     }
 
     @Override
-    public void on(PeriodDeletedEvent event) {
+    public void on(final PeriodDeletedEvent event) {
         repository.deleteById(event.getPeriodId()).subscribe();
     }
 
     @Override
-    public void on(PeriodUpdatedEvent event) {
+    public void on(final PeriodUpdatedEvent event) {
         get(event.getPeriodId())
                 .map(periodFromRepository -> {
                     if (event.getDate() != null) {
@@ -62,7 +62,7 @@ public class PeriodEventHandlerImpl implements PeriodEventHandler {
                 .subscribe();
     }
 
-    private Mono<Period> get(UUID periodId) {
+    private Mono<Period> get(final UUID periodId) {
         return repository.findById(periodId)
                 .switchIfEmpty(Mono.error(
                         new ResourceNotFoundException(

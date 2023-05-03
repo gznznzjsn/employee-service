@@ -14,19 +14,22 @@ import org.axonframework.spring.stereotype.Saga;
 public class EmployeeCreationSaga implements EmployeeCreator {
 
     @Inject
-    private transient CommandGateway commandGateway;
+    private transient CommandGateway gateway;
 
     @Override
-    public void handle(EmployeeCreatedEvent event) {
-        SagaLifecycle.associateWith("inventoryId", event.getInventoryId().toString());
+    public void handle(final EmployeeCreatedEvent event) {
+        SagaLifecycle.associateWith(
+                "inventoryId",
+                event.getInventoryId().toString()
+        );
         try {
-            commandGateway.sendAndWait(new EquipmentAssignCommand(
+            gateway.sendAndWait(new EquipmentAssignCommand(
                     event.getInventoryId(),
                     event.getSpecialization().toString(),
                     event.getEmployeeId()
             ));
         } catch (Exception e) {
-            commandGateway.sendAndWait(new EmployeeDeleteCommand(
+            gateway.sendAndWait(new EmployeeDeleteCommand(
                     event.getGlossaryId(),
                     event.getEmployeeId()
             ));
@@ -34,7 +37,7 @@ public class EmployeeCreationSaga implements EmployeeCreator {
     }
 
     @Override
-    public void handle(EquipmentAssignedEvent event) {
+    public void handle(final EquipmentAssignedEvent event) {
         SagaLifecycle.end();
     }
 

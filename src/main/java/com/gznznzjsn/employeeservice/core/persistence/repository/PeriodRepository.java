@@ -24,4 +24,5 @@ public interface PeriodRepository extends R2dbcRepository<Period, UUID> {
                     WHERE period_id=$1;
             """)
     Mono<Period> findById(UUID periodId);
+
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 public record ExceptionDto(
 
         String message,
-        Map<String,String> otherInfo
+        Map<String, String> otherInfo
 
 ) {
 }

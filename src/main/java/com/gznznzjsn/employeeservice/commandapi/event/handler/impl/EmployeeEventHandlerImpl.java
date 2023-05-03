@@ -17,7 +17,7 @@ public class EmployeeEventHandlerImpl implements EmployeeEventHandler {
     private final EmployeeRepository repository;
 
     @Override
-    public void on(EmployeeCreatedEvent event) {
+    public void on(final EmployeeCreatedEvent event) {
         Mono.just(event)
                 .flatMap(e -> repository.save(Employee.builder()
                         .id(event.getEmployeeId())
@@ -32,7 +32,7 @@ public class EmployeeEventHandlerImpl implements EmployeeEventHandler {
     }
 
     @Override
-    public void on(EmployeeDeletedEvent event) {
+    public void on(final EmployeeDeletedEvent event) {
         Mono.just(event)
                 .flatMap(e -> repository.deleteByGlossaryIdAndId(
                         event.getGlossaryId(),

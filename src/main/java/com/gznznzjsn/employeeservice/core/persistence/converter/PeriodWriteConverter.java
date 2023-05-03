@@ -10,13 +10,19 @@ import org.springframework.r2dbc.core.Parameter;
 public class PeriodWriteConverter implements Converter<Period, OutboundRow> {
 
     @Override
-    public OutboundRow convert(Period period) {
+    public OutboundRow convert(final Period period) {
         OutboundRow row = new OutboundRow();
         if (period.getId() != null) {
             row.put("period_id", Parameter.from(period.getId()));
         }
-        if (period.getEmployee() != null && period.getEmployee().getId() != null) {
-            row.put("employee_id", Parameter.from(period.getEmployee().getId()));
+        if (
+                period.getEmployee() != null
+                && period.getEmployee().getId() != null
+        ) {
+            row.put(
+                    "employee_id",
+                    Parameter.from(period.getEmployee().getId())
+            );
         }
         if (period.getDate() != null) {
             row.put("period_date", Parameter.from(period.getDate()));

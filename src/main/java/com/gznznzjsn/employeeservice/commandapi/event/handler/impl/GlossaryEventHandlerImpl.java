@@ -15,7 +15,7 @@ public class GlossaryEventHandlerImpl implements GlossaryEventHandler {
     private final GlossaryRepository repository;
 
     @Override
-    public void on(GlossaryCreatedEvent event) {
+    public void on(final GlossaryCreatedEvent event) {
         Mono.just(event)
                 .flatMap(e -> repository.save(Glossary.builder()
                         .id(event.getGlossaryId())

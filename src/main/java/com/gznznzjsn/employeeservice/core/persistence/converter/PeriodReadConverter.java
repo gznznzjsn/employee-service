@@ -16,14 +16,26 @@ import java.util.UUID;
 public class PeriodReadConverter implements Converter<Row, Period> {
 
     @Override
-    public Period convert(Row source) {
+    public Period convert(final Row source) {
         return Period.builder()
                 .id(source.get("period_id", UUID.class))
                 .employee(Employee.builder()
                         .id(source.get("employee_id", UUID.class))
-                        .glossary(Glossary.builder().id(source.get("employee_glossary_id", UUID.class)).build())
+                        .glossary(
+                                Glossary.builder()
+                                        .id(source.get(
+                                                "employee_glossary_id",
+                                                UUID.class)
+                                        )
+                                        .build()
+                        )
                         .name(source.get("employee_name", String.class))
-                        .specialization(Specialization.valueOf(source.get("employee_specialization", String.class)))
+                        .specialization(Specialization.valueOf(
+                                source.get(
+                                        "employee_specialization",
+                                        String.class
+                                )
+                        ))
                         .build()
                 )
                 .date(source.get("period_date", LocalDate.class))

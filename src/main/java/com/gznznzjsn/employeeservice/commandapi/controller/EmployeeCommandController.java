@@ -27,39 +27,47 @@ import java.util.UUID;
 @RequestMapping("/employee-api/v1/glossaries/{glossaryId}/employees")
 public class EmployeeCommandController {
 
-    private final EmployeeCommandService employeeCommandService;
-    private final PeriodCommandService periodCommandService;
+    private final EmployeeCommandService employeeService;
+    private final PeriodCommandService periodService;
 
     @PostMapping
     public Mono<UUID> create(
-            @Validated(OnCreateEmployee.class) @RequestBody EmployeeDto employeeDto,
-            @PathVariable UUID glossaryId,
-            @RequestParam UUID inventoryId
+            final @Validated(OnCreateEmployee.class)
+            @RequestBody
+            EmployeeDto dto,
+            final @PathVariable UUID glossaryId,
+            final @RequestParam UUID inventoryId
     ) {
-        return Mono.just(employeeDto)
-                .map(e -> new EmployeeCreateCommand(glossaryId, e.name(), e.specialization(), inventoryId))
-                .flatMap(employeeCommandService::createEmployee);
+        return Mono.just(dto)
+                .map(e -> new EmployeeCreateCommand(
+                        glossaryId, e.name(),
+                        e.specialization(), inventoryId
+                ))
+                .flatMap(employeeService::create);
     }
 
     @DeleteMapping("/{employeeId}")
     public Mono<UUID> delete(
-            @PathVariable UUID employeeId,
-            @PathVariable UUID glossaryId
+            final @PathVariable UUID employeeId,
+            final @PathVariable UUID glossaryId
     ) {
-        return employeeCommandService.delete(
+        return employeeService.delete(
                 new EmployeeDeleteCommand(glossaryId, employeeId)
         );
     }
 
     @PostMapping("/erase-period")
     public Mono<UUID> eraseAppropriatePeriod(
-            @PathVariable UUID glossaryId,
-            @RequestParam LocalDateTime arrivalTime,
-            @RequestParam Specialization specialization,
-            @RequestParam Integer totalDuration
+            final @PathVariable UUID glossaryId,
+            final @RequestParam LocalDateTime arrivalTime,
+            final @RequestParam Specialization specialization,
+            final @RequestParam Integer totalDuration
     ) {
-        return periodCommandService.eraseAppropriate(
-                new PeriodEraseAppropriateCommand(glossaryId, arrivalTime, specialization, totalDuration)
+        return periodService.eraseAppropriate(
+                new PeriodEraseAppropriateCommand(
+                        glossaryId, arrivalTime,
+                        specialization, totalDuration
+                )
         );
     }
 

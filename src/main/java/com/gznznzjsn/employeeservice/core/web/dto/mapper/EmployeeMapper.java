@@ -1,7 +1,6 @@
 package com.gznznzjsn.employeeservice.core.web.dto.mapper;
 
 
-import com.gznznzjsn.employeeservice.commandapi.command.EmployeeCreateCommand;
 import com.gznznzjsn.employeeservice.core.model.Employee;
 import com.gznznzjsn.employeeservice.core.web.dto.EmployeeDto;
 import org.mapstruct.Mapper;
